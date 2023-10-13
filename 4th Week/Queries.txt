@@ -1,0 +1,188 @@
+### SQL Queries
+
+These SQL queries are designed to help you answer specific questions related to your gaming event management system. Make sure to customize them to match your database schema and column names as necessary ,
+Certainly, here are 15 SQL queries that you can use to answer the questions from the provided list:
+
+1. **Player Behavior Analysis**
+   - Identify the most commonly used combinations of first, second, and third items in player inventories during quests.
+
+**Query 1: Player Behavior Analysis**
+```sql
+-- Identify the five most commonly used combinations of first, second, and third items in player inventories during quests.
+SELECT item1, item2, item3, COUNT(*) AS count
+FROM PlayerInventory
+GROUP BY item1, item2, item3
+ORDER BY count DESC
+LIMIT 5;
+```
+
+2. **Chat Metrics**
+   - Calculate the average number of messages per minute sent in each chat room between 8 PM and 9 PM.
+
+**Query 2: Chat Metrics**
+```sql
+-- Calculate the average number of messages per minute sent in each chat room between 8 PM and 9 PM.
+SELECT chat_group_id, AVG(message_count) AS avg_messages_per_minute
+FROM (
+    SELECT chat_group_id, COUNT(*) AS message_count
+    FROM Messages
+    WHERE created_at BETWEEN '2023-10-04 20:00:00' AND '2023-10-04 21:00:00'
+    GROUP BY chat_group_id
+) AS chat_counts
+GROUP BY chat_group_id;
+```
+
+3. **Rapid Item Acquisition**
+   - Identify players who have acquired items with a total value exceeding a specified threshold in less than 24 hours.
+
+**Query 3: Rapid Item Acquisition**
+```sql
+-- Identify any player who has acquired items with a total value exceeding 1000 gold in less than 24 hours.
+SELECT player_id
+FROM PlayerItems
+WHERE acquired_at >= NOW() - INTERVAL 24 HOUR
+GROUP BY player_id
+HAVING SUM(item_value) > 1000;
+```
+
+4. **High Frequency Quest Completions**
+   - Detect players who have completed more than a specified number of quests within a 24-hour period.
+
+**Query 4: High Frequency Quest Completions**
+```sql
+-- Detect players who have completed more than 10 quests within a 24-hour period.
+SELECT player_id
+FROM QuestCompletions
+WHERE completed_at >= NOW() - INTERVAL 24 HOUR
+GROUP BY player_id
+HAVING COUNT(*) > 10;
+```
+
+5. **Inflation Analysis**
+   - Track the average value of traded items over time to analyze in-game economy trends.
+
+**Query 5: Inflation Analysis**
+```sql
+-- Track the average value of traded items over time to detect if the in-game economy is experiencing inflation or deflation.
+SELECT DATE(trade_date) AS trade_day, AVG(item_value) AS avg_item_value
+FROM ItemTransactions
+GROUP BY trade_day;
+```
+
+6. **Top Traded Items**
+   - Identify the most commonly traded or sold in-game items.
+
+**Query 6: Top Traded Items**
+```sql
+-- Identify which items are most commonly traded or sold in-game.
+SELECT item_id, COUNT(*) AS trade_count
+FROM ItemTransactions
+GROUP BY item_id
+ORDER BY trade_count DESC
+LIMIT 10;
+```
+
+7. **Supply and Demand**
+   - Analyze player demand for specific items versus item availability for trade or sale.
+
+**Query 7: Supply and Demand**
+```sql
+-- Analyze the number of players seeking certain types of items versus the number of those items available for trade.
+SELECT item_id, COUNT(*) AS demand_count
+FROM ItemWanted
+GROUP BY item_id;
+```
+
+8. **Merchant Analysis**
+   - Identify players primarily involved in trading activities rather than quests or combat.
+
+**Query 8: Merchant Analysis**
+```sql
+-- Identify players who are predominantly involved in trading activities rather than quests or combat.
+SELECT player_id
+FROM PlayerActivities
+WHERE trading_activity > quest_activity AND trading_activity > combat_activity;
+```
+
+9. **Market Hotspots**
+   - Find locations in the game where the most transactions or trades occur.
+
+**Query 9: Market Hotspots**
+```sql
+-- Find locations in the game where the most transactions or trades occur.
+SELECT location_id, COUNT(*) AS transaction_count
+FROM TransactionLocations
+GROUP BY location_id
+ORDER BY transaction_count DESC
+LIMIT 5;
+```
+
+10. **Currency Sink**
+    - Determine major "sinks" for in-game currency based on transaction types.
+
+**Query 10: Currency Sink**
+```sql
+-- Determine what in-game activities or transactions are the largest "sinks" for in-game currency.
+SELECT transaction_type, SUM(currency_amount) AS total_currency_sink
+FROM CurrencyTransactions
+GROUP BY transaction_type
+ORDER BY total_currency_sink DESC;
+```
+
+11. **Rare Item Ownership**
+    - List players who own the rarest items in the game.
+
+**Query 11: Rare Item Ownership**
+```sql
+-- List players who own the rarest items in the game.
+SELECT player_id, item_id
+FROM PlayerItemOwnership
+WHERE rarity = 'rare'
+ORDER BY item_id;
+```
+
+12. **Economic Imbalance**
+    - Detect players with a disproportionate amount of in-game currency compared to their activity or level.
+
+**Query 12: Economic Imbalance**
+```sql
+-- Detect players who have a disproportionate amount of in-game currency compared to their activity or level.
+SELECT player_id
+FROM PlayerEconomicImbalance
+WHERE currency_deviation > 10000;
+```
+
+13. **Quest Completions Over Time**
+    - Track the rate at which quests are being completed over time.
+
+**Query 13: Quest Completions Over Time**
+```sql
+-- Track the rate at which quests are being completed over time.
+SELECT DATE(completed_at) AS completion_date, COUNT(*) AS quest_count
+FROM QuestCompletions
+GROUP BY completion_date;
+```
+
+14. **Crafting Skill Level vs. Player Level**
+    - Examine correlations between players' overall levels and crafting skill levels.
+
+**Query 14: Crafting Skill Level vs. Player Level**
+```sql
+-- Examine if there is a correlation between a player's overall level and their crafting skill levels.
+SELECT player_id, AVG(player_level) AS avg_player_level, AVG(crafting_skill_level) AS avg_crafting_skill_level
+FROM PlayerCraftingSkills
+GROUP BY player_id;
+```
+
+15. **Player Retention**
+    - Analyze the average session length and frequency for each player to identify patterns in player retention.
+
+**Query 15: Player Retention**
+```sql
+-- Analyze the average session length and frequency for each player to identify patterns in player retention.
+SELECT player_id, AVG(session_length) AS avg_session_length, AVG(session_frequency) AS avg_session_frequency
+FROM PlayerRetention
+GROUP BY player_id;
+```
+
+Please note that these queries are examples, and you may need to adapt them to match your specific database schema and column names. Additionally, ensure that you provide query documentation as required in your assignment.
