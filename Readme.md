@@ -15,36 +15,43 @@ In a bygone age, Ethera was a utopia where arcane energies and earthly delights 
 ### Key Features
 
 - **Character Customization**:
+
   - Create your hero with a choice of races, classes, and skill trees.
   - Personalize with cosmetics, outfits, weapon skins, and emotes.
   - Unlock abilities and talents for a unique gameplay experience.
 
 - **Questing**:
+
   - Dynamic, branching quests that respond to player decisions.
   - Adjustable difficulty levels for all player types.
   - Reward system with rare items and experience points.
 
 - **Teams**:
+
   - Form or join a team of up to 5 players.
   - Specialized team roles encourage cooperation.
   - Bonus rewards for completing quests as a team.
 
 - **Crafting**:
+
   - Gather resources from the world or loot from enemies.
   - Use blueprints to craft items, weapons, and buildings.
   - Advanced crafting system for specialized items.
 
 - **Events**:
+
   - Seasonal events for real-world holidays.
   - Special events triggered by community milestones.
   - Exclusive items and challenges during these periods.
 
 - **Real-Time Combat**:
+
   - Realistic physics and hit detection.
   - Tactical options including flanking, cover, and special abilities.
   - PvP arenas and dueling options for competitive play.
 
 - **Economy**:
+
   - Auction houses and direct player trading.
   - Dynamic supply and demand affecting item prices.
   - Currency sinks to prevent inflation.
@@ -99,8 +106,6 @@ Embark on your journey, uncover the secrets of Ethera, and be the hero who resto
 Follow us on [Twitter](https://twitter.com/MysticQuestGame) | [Facebook](https://www.facebook.com/MysticQuestGame) | [Instagram](https://www.instagram.com/mysticquestgame)
 
 ## Icons
-
-Feel free to use these icons in your GitHub README to enhance its visual appeal:
 
 - ![Character Customization](https://example.com/icons/character-customization.png) Character Customization
 - ![Questing](https://example.com/icons/questing.png) Questing
